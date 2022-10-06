@@ -53,6 +53,6 @@ jobs:
       - run: npx nx affected --target=build --parallel=3
       - name: 'publish to npm'
         if: ${{github.event.inputs.version != ''}}
-        run: npx nx affected --target=publish --ver ${{github.event.inputs.version}} --tag  ${{github.event.inputs.tag}} --parallel=3
+        run: npx nx run-many --target=publish --ver ${{github.event.inputs.version}} --tag  ${{github.event.inputs.tag}} --parallel=3
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

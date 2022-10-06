@@ -15,7 +15,7 @@ describe('splitWebstreams', () => {
       !result.done;
       result = await reader.read()
     ) {
-      console.log('[value]', result.value);
+      console.log('[value 11]', result.value);
     }
   });
 });

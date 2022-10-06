@@ -45,3 +45,6 @@ jobs:
       - run: npx nx affected --target=lint --parallel=3
       - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
       - run: npx nx affected --target=build --parallel=3
+      - name: 'publish to npm'
+        if: ${{github.event.inputs.turn_k8s_base_app != ''}}
+        run: npx nx affected --target=publish --ver ${{github.event.inputs.version}} --tag  ${{github.event.inputs.tag}} --parallel=3

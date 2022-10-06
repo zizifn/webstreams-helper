@@ -37,14 +37,19 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
+          registry-url: 'https://registry.npmjs.org'
       - uses: nrwl/nx-set-shas@v3
+      - run: |
+          echo "BASE: ${{ env.NX_BASE }}"
+          echo "HEAD: ${{ env.NX_HEAD }}"
       - run: npm ci
-
       - run: npx nx workspace-lint
       - run: npx nx format:check
       - run: npx nx affected --target=lint --parallel=3
       - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
       - run: npx nx affected --target=build --parallel=3
       - name: 'publish to npm'
-        if: ${{github.event.inputs.turn_k8s_base_app != ''}}
-        run: npx nx affected --target=publish --ver ${{github.event.inputs.version}} --tag  ${{github.event.inputs.tag}} --parallel=3
+        if: ${{github.event.inputs.version != ''}}
+        run: npx nx run-many --target=publish --ver ${{github.event.inputs.version}} --tag  ${{github.event.inputs.tag}} --parallel=3
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

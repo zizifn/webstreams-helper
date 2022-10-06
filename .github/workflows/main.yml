@@ -39,8 +39,10 @@ jobs:
           node-version: 18
           registry-url: 'https://registry.npmjs.org'
       - uses: nrwl/nx-set-shas@v3
+      - run: |
+          echo "BASE: ${{ steps.setSHAs.outputs.base }}"
+          echo "HEAD: ${{ steps.setSHAs.outputs.head }}"
       - run: npm ci
-
       - run: npx nx workspace-lint
       - run: npx nx format:check
       - run: npx nx affected --target=lint --parallel=3

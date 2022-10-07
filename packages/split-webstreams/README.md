@@ -1,11 +1,11 @@
 # split-webstreams
 
-This library was generated with [Nx](https://nx.dev).
+[split2](https://github.com/mcollina/split2#readme) for web streams api. Working for node and browser.
 
-## Building
+streams sepc:
+https://streams.spec.whatwg.org/
 
-Run `nx build split-webstreams` to build the library.
+MDN doc:
+https://developer.mozilla.org/en-US/docs/Web/API/Streams_API
 
-## Running unit tests
-
-Run `nx test split-webstreams` to execute the unit tests via [Jest](https://jestjs.io).
+This is not done yet

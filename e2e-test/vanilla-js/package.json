@@ -1,0 +1,20 @@
+{
+  "name": "vite-typescript-starter",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "node-test": "ts-node-esm node-test.ts"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.4",
+    "vite": "^3.1.4"
+  },
+  "dependencies": {
+    "split-webstreams": "0.0.7",
+    "ts-node": "^10.9.1"
+  }
+}

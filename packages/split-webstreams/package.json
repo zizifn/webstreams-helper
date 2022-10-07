@@ -1,5 +1,21 @@
 {
   "name": "split-webstreams",
   "version": "0.0.1",
-  "type": "module"
+  "type": "commonjs",
+  "browser": {
+    "./src/platform/node": "./src/platform/browser"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zizifn/webstreams-helper"
+  },
+  "keywords": [
+    "webstreams"
+  ],
+  "author": "zizifn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zizifn/webstreams-helper/issues"
+  },
+  "homepage": "https://github.com/zizifn/webstreams-helper/tree/main/packages/split-webstreams"
 }

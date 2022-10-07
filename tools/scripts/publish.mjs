@@ -23,6 +23,9 @@ function invariant(condition, message) {
 // Default "tag" to "next" so we won't publish the "latest" tag by accident.
 const [, , name, version, tag = 'next'] = process.argv;
 
+// output github action env
+console.log(process.env);
+
 // A simple SemVer validation to validate the version
 const validVersion = /^\d+\.\d+\.\d+(-\w+\.\d+)?/;
 invariant(
@@ -51,9 +54,8 @@ try {
   const json = JSON.parse(readFileSync(`package.json`).toString());
   let publishVersion = version;
   if (tag !== 'latest') {
-    const { GITHUB_RUN_ID } = process.env;
-    console.log(process.env);
-    publishVersion = `publishVersion-next.${GITHUB_RUN_ID}`;
+    const { GITHUB_RUN_NUMBER } = process.env;
+    publishVersion = `${publishVersion}-next.${GITHUB_RUN_NUMBER}`;
   }
   json.version = publishVersion;
   writeFileSync(`package.json`, JSON.stringify(json, null, 2));

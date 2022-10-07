@@ -8,6 +8,14 @@
 
 ## split
 
+```bash
+$ npm i split-webstreams
+```
+
+### Usage
+
+[split-webstreams](./packages/split-webstreams/README.md)
+
 https://www.npmjs.com/package/split-webstreams
 
 ## publish

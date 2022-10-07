@@ -53,7 +53,7 @@ try {
   if (tag !== 'latest') {
     const { GITHUB_RUN_ID } = process.env;
     console.log(process.env);
-    publishVersion = `publishVersion-next.${GITHUB_RUN_ID}`
+    publishVersion = `publishVersion-next.${GITHUB_RUN_ID}`;
   }
   json.version = publishVersion;
   writeFileSync(`package.json`, JSON.stringify(json, null, 2));

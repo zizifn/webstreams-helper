@@ -29,6 +29,10 @@ $ npm i split-webstreams
 </script>
 ```
 
+### example
+
+[esm-example-html](../../e2e-test/vanilla-js/index-esm.html)
+
 ### UMD
 
 ```html
@@ -37,6 +41,10 @@ $ npm i split-webstreams
   console.log(window['split-webstreams'].split());
 </script>
 ```
+
+### example
+
+[esm-example-html](../../e2e-test/vanilla-js/index-umd.html)
 
 ## Usage
 

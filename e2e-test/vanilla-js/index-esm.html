@@ -19,6 +19,7 @@
     <div id="app"></div>
     <script type="module">
         import { split } from 'https://cdn.jsdelivr.net/npm/split-webstreams@latest';
+        console.log(split())
         await fetch(`https://rickandmortyapi.com/api/character/23`).then((res) => res.body).then(async (body) => {
             const reader = body?.pipeThrough(new TextDecoderStream()).pipeThrough(split()).getReader();
             for (let result = await reader?.read(); !result?.done; result = await reader?.read()) {

@@ -92,11 +92,11 @@ const TechnologyCard = ({
 };
 
 const FetchCard = ({}) => {
-  const [text, setText] = useState({});
+  const [text, setText] = useState("");
   useEffect(() => {
     (async () => {
       const result1 = await fetch(
-        `https://rickandmortyapi.com/api/character/23`
+        `https://raw.githubusercontent.com/zizifn/webstreams-helper/main/nx.json`
       )
         .then((res) => res.body)
         .then(async (body) => {
@@ -104,13 +104,15 @@ const FetchCard = ({}) => {
             ?.pipeThrough(new TextDecoderStream())
             .pipeThrough(split())
             .getReader();
+          let final = "";
           for (
             let result = await reader?.read();
             !result?.done;
             result = await reader?.read()
           ) {
-            console.log("[value]", result?.value);
-            setText(result?.value);
+            // console.log("[value]", result?.value);
+            final += `${result?.value}\n`;
+            setText(final);
           }
           // …
         });
@@ -118,7 +120,7 @@ const FetchCard = ({}) => {
   }, []);
   return (
     <section className="flex flex-col justify-center rounded border-2 border-gray-500 p-6 shadow-xl duration-500 motion-safe:hover:scale-105">
-      <pre className="overflow-scroll"> {JSON.stringify(text)} </pre>
+      <pre className="overflow-scroll"> {text} </pre>
     </section>
   );
 };

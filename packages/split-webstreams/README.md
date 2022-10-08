@@ -2,7 +2,7 @@
 
 Break up a stream and reassemble it so that each line is a chunk. `split-webstreams` is inspired by [split2](https://github.com/mcollina/split2).
 
-However this is for [web streams](https://streams.spec.whatwg.org/) which is support by Node and browser.
+However this is for [web streams](https://streams.spec.whatwg.org/) which is support by Node(>18) and browser.
 
 **And package working in node and browser.**
 

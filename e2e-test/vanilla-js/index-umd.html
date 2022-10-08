@@ -9,16 +9,17 @@
 </head>
 
 <body>
-    <div id="app"></div>
+    <pre id="app"></pre>
     <script src="https://cdn.jsdelivr.net/npm/split-webstreams@latest/dist/split-webstreams.umd.js"></script>
     <script>
         console.log(window['split-webstreams'].split())
-        fetch(`https://rickandmortyapi.com/api/character/23`).then((res) => res.body).then(async (body) => {
+        fetch(`https://raw.githubusercontent.com/zizifn/webstreams-helper/main/nx.json`).then((res) => res.body).then(async (body) => {
+            let final = '';
             const reader = body?.pipeThrough(new TextDecoderStream()).pipeThrough(window["split-webstreams"].split()).getReader();
             for (let result = await reader?.read(); !result?.done; result = await reader?.read()) {
-                console.log('[value]', result?.value);
-                document.getElementById('app').textContent = result?.value;
+                final += `${result?.value}\n`
             }
+            document.getElementById('app').textContent = final;
         });
     </script>
 </body>

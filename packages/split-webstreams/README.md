@@ -20,7 +20,7 @@ $ npm i split-webstreams
 
 ### jsdelivr
 
-### ESM
+#### ESM
 
 ```html
 <script type="module">
@@ -29,11 +29,9 @@ $ npm i split-webstreams
 </script>
 ```
 
-### example
-
 [esm-example-html](../../e2e-test/vanilla-js/index-esm.html)
 
-### UMD
+#### UMD
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/split-webstreams@latest/dist/split-webstreams.umd.js"></script>
@@ -42,9 +40,7 @@ $ npm i split-webstreams
 </script>
 ```
 
-### example
-
-[esm-example-html](../../e2e-test/vanilla-js/index-umd.html)
+[umd-example-html](../../e2e-test/vanilla-js/index-umd.html)
 
 ## Usage
 

@@ -25,21 +25,7 @@ $ npm i split-webstreams
 ```html
 <script type="module">
   import { split } from 'https://cdn.jsdelivr.net/npm/split-webstreams@latest';
-  await fetch(`https://rickandmortyapi.com/api/character/23`)
-    .then((res) => res.body)
-    .then(async (body) => {
-      const reader = body
-        ?.pipeThrough(new TextDecoderStream())
-        .pipeThrough(split())
-        .getReader();
-      for (
-        let result = await reader?.read();
-        !result?.done;
-        result = await reader?.read()
-      ) {
-        console.log('[value]', result?.value);
-      }
-    });
+  console.log(split());
 </script>
 ```
 
@@ -48,21 +34,7 @@ $ npm i split-webstreams
 ```html
 <script src="https://cdn.jsdelivr.net/npm/split-webstreams@latest/dist/split-webstreams.umd.js"></script>
 <script>
-  fetch(`https://rickandmortyapi.com/api/character/23`)
-    .then((res) => res.body)
-    .then(async (body) => {
-      const reader = body
-        ?.pipeThrough(new TextDecoderStream())
-        .pipeThrough(window['split-webstreams'].split())
-        .getReader();
-      for (
-        let result = await reader?.read();
-        !result?.done;
-        result = await reader?.read()
-      ) {
-        console.log('[value]', result?.value);
-      }
-    });
+  console.log(window['split-webstreams'].split());
 </script>
 ```
 

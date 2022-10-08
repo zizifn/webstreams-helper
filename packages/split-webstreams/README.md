@@ -1,14 +1,33 @@
 # split-webstreams
 
-**THIS IS NOT DONE YET**
+Break up a stream and reassemble it so that each line is a chunk. `split-webstreams` is inspired by [split2](https://github.com/mcollina/split2).
 
-[split2](https://github.com/mcollina/split2#readme) for web streams api. Working for node and browser.
+However this is for [web streams](https://streams.spec.whatwg.org/) which is support by Node and browser.
+
+**And package working in node and browser.**
 
 streams sepc:
 https://streams.spec.whatwg.org/
 
 MDN doc:
 https://developer.mozilla.org/en-US/docs/Web/API/Streams_API
+
+## API
+
+`split` is same as [String/split](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split). But not support `limit ` parameter.
+
+```javascript
+import { split } from 'split-webstreams';
+const reader = Readable.toWeb(
+  createReadStream(path.join(__dirname, 'test-data.txt'))
+)
+  .pipeThrough(new TextDecoderStream())
+  .pipeThrough(split());
+
+for await (const chunk of reader) {
+  console.log(chunk);
+}
+```
 
 ## Install
 

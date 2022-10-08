@@ -5,6 +5,7 @@
   "browser": {
     "./src/platform/node": "./src/platform/browser"
   },
+  "jsdelivr": "./dist/split-webstreams.mjs",
   "repository": {
     "type": "git",
     "url": "https://github.com/zizifn/webstreams-helper"

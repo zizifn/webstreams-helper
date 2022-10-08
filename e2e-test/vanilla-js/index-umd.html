@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script src="https://cdn.jsdelivr.net/npm/split-webstreams@latest/dist/split-webstreams.umd.js"></script>
+    <script>
+        fetch(`https://rickandmortyapi.com/api/character/23`).then((res) => res.body).then(async (body) => {
+            const reader = body?.pipeThrough(new TextDecoderStream()).pipeThrough(window["split-webstreams"].split()).getReader();
+            for (let result = await reader?.read(); !result?.done; result = await reader?.read()) {
+                console.log('[value]', result?.value);
+                document.getElementById('app').textContent = result?.value;
+            }
+        });
+    </script>
+</body>
+
+</html>

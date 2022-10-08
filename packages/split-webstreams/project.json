@@ -14,10 +14,23 @@
         "assets": ["packages/split-webstreams/*.md"]
       }
     },
+    "bundle": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "vite build --config packages/split-webstreams/vite.config.ts"
+      }
+    },
     "publish": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "node tools/scripts/publish.mjs split-webstreams {args.ver} {args.tag}"
+        "commands": [
+          {
+            "command": "vite build --config packages/split-webstreams/vite.config.ts",
+            "forwardAllArgs": false
+          },
+          "node tools/scripts/publish.mjs split-webstreams {args.ver} {args.tag}"
+        ],
+        "parallel": false
       },
       "dependsOn": [
         {

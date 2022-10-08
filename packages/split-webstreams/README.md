@@ -14,7 +14,9 @@ https://developer.mozilla.org/en-US/docs/Web/API/Streams_API
 
 ## API
 
-`split` is same as [String/split](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split). But not support `limit ` parameter.
+`split` is same as [String/split](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split). But not support `limit` parameter.
+
+`split` only accept string chunk, please pipeThrough [TextDecoderStream](https://developer.mozilla.org/en-US/docs/Web/API/TextDecoderStream) first.
 
 ```javascript
 import { split } from 'split-webstreams';

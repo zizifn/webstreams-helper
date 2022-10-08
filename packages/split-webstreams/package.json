@@ -1,7 +1,7 @@
 {
   "name": "split-webstreams",
   "version": "0.0.1",
-  "type": "module",
+  "type": "commonjs",
   "browser": {
     "./src/platform/node": "./src/platform/browser"
   },

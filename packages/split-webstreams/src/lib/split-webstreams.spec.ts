@@ -5,62 +5,194 @@ import {
   TextDecoderStream,
   ReadableStreamDefaultController,
   ReadableStream,
+  WritableStream,
 } from 'node:stream/web';
 import * as path from 'path';
 import * as split2 from 'split2';
+import { TextEncoder } from 'util';
 
 describe('splitWebstreams', () => {
-  it('should work', async () => {
+  it('should only accept', async () => {
+    let count = 0;
+    class TestUnderlyingSource implements UnderlyingSource {
+      #index = 10;
+      start(controller: ReadableStreamDefaultController) {
+        //
+      }
+
+      pull(controller: ReadableStreamDefaultController) {
+        if (this.#index < 0) {
+          controller.enqueue({ key: 11 });
+        }
+        controller.enqueue('\ndddddd  ' + this.#index);
+        this.#index--;
+      }
+      cancel() {
+        //
+      }
+    }
+    const reader = new ReadableStream(new TestUnderlyingSource()).pipeThrough(
+      split()
+    );
+    try {
+      for await (const chunk of reader) {
+        console.log(chunk);
+        count++;
+      }
+    } catch (error) {
+      expect(error).toEqual(
+        'chunk must be string! pipeThrough TextDecoderStream first'
+      );
+    }
+  });
+
+  it('should work multiple line', async () => {
     //
+    let count = 0;
     const reader = Readable.toWeb(
       createReadStream(path.join(__dirname, 'test-data.txt'))
     )
       .pipeThrough(new TextDecoderStream())
-      .pipeThrough(split())
-      .getReader();
-    let final = '';
-    for (
-      let result = await reader.read();
-      !result.done;
-      result = await reader.read()
-    ) {
-      final += result.value + '\n';
+      .pipeThrough(split());
+
+    for await (const chunk of reader) {
+      // console.log(chunk);
+      count++;
     }
-    console.log(final);
+    expect(count).toEqual(20);
+  });
+
+  it('should work multiple line with utf16', async () => {
+    //
+    let count = 0;
+    const reader = Readable.toWeb(
+      createReadStream(path.join(__dirname, 'test-data-utf16.txt'))
+    )
+      .pipeThrough(new TextDecoderStream('utf-16'))
+      .pipeThrough(split());
+
+    for await (const chunk of reader) {
+      // console.log(chunk);
+      count++;
+    }
+    expect(count).toEqual(20);
+  });
+
+  it('should work only has one line', async () => {
+    //
+    let count = 0;
+    const reader = Readable.toWeb(
+      createReadStream(path.join(__dirname, 'test-data-oneline.txt'))
+    )
+      .pipeThrough(new TextDecoderStream())
+      .pipeThrough(split());
+
+    for await (const chunk of reader) {
+      // console.log(chunk);
+      count++;
+    }
+    expect(count).toEqual(1);
+  });
+
+  it('should work only has one line', async () => {
+    let count = 0;
+    class TestUnderlyingSource implements UnderlyingSource {
+      #index = 10;
+      start(controller: ReadableStreamDefaultController) {
+        //
+      }
+
+      pull(controller: ReadableStreamDefaultController) {
+        if (this.#index < 0) {
+          controller.close();
+        }
+        controller.enqueue('dddddd  ' + this.#index);
+        this.#index--;
+      }
+      cancel() {
+        //
+      }
+    }
+    const reader = new ReadableStream(new TestUnderlyingSource()).pipeThrough(
+      split()
+    );
+
+    for await (const chunk of reader) {
+      count++;
+    }
+    expect(count).toEqual(1);
+  });
+
+  it('should work when Chinese char', async () => {
+    let count = 0;
+    class TestUnderlyingSource implements UnderlyingSource {
+      dataBuffer = new TextEncoder().encode('a你的\n我的他的');
+      #index = 0;
+      start(controller: ReadableStreamDefaultController) {
+        //
+      }
+
+      pull(controller: ReadableStreamDefaultController) {
+        if (this.#index > this.dataBuffer.byteLength) {
+          controller.close();
+        }
+        controller.enqueue(
+          this.dataBuffer.slice(this.#index, (this.#index += 2))
+        );
+      }
+      cancel() {
+        //
+      }
+    }
+    const reader = new ReadableStream(new TestUnderlyingSource())
+      .pipeThrough(new TextDecoderStream())
+      .pipeThrough(split());
+
+    for await (const chunk of reader) {
+      count++;
+    }
+    expect(count).toEqual(2);
+  });
+
+  it('should work when split by char', async () => {
+    let count = 0;
+    class TestUnderlyingSource implements UnderlyingSource {
+      dataBuffer = new TextEncoder().encode('a你的\n我的他的');
+      #index = 0;
+      start(controller: ReadableStreamDefaultController) {
+        //
+      }
+
+      pull(controller: ReadableStreamDefaultController) {
+        if (this.#index > this.dataBuffer.byteLength) {
+          controller.close();
+        }
+        controller.enqueue(
+          this.dataBuffer.slice(this.#index, (this.#index += 2))
+        );
+      }
+      cancel() {
+        //
+      }
+    }
+    const reader = new ReadableStream(new TestUnderlyingSource())
+      .pipeThrough(new TextDecoderStream())
+      .pipeThrough(split('的'));
+
+    for await (const chunk of reader) {
+      count++;
+    }
+    expect(count).toEqual(3);
   });
 
   it('should work line2', async () => {
-    class TimestampSource implements UnderlyingSource {
-      #interval!: NodeJS.Timer;
+    let count = 0;
+    const reader = Readable.from(Buffer.from('\n')).pipe(split2());
 
-      start(controller: ReadableStreamDefaultController) {
-        this.#interval = setInterval(() => {
-          const string = new Date().toLocaleTimeString();
-          // Add the string to the stream.
-          controller.enqueue(string);
-          console.log(`Enqueued ${string}`);
-        }, 1_000);
-
-        setTimeout(() => {
-          clearInterval(this.#interval);
-          // Close the stream after 10s.
-          controller.close();
-        }, 10_000);
-      }
-
-      cancel() {
-        // This is called if the reader cancels.
-        clearInterval(this.#interval);
-      }
+    for await (const chunk of reader) {
+      console.log(chunk);
+      count++;
     }
-
-    const stream = new ReadableStream(new TimestampSource());
-
-    //
-    const nodeRS = Readable.fromWeb(stream).pipe(split2());
-
-    for await (const chunk of nodeRS) {
-      console.log('ddddddddd', chunk);
-    }
-  }, 12_000);
+    expect(count).toEqual(1);
+  });
 });

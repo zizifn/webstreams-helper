@@ -51,7 +51,8 @@
       "outputs": ["coverage/packages/split-webstreams"],
       "options": {
         "jestConfig": "packages/split-webstreams/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "codeCoverage": true
       }
     }
   },

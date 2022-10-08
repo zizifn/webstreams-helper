@@ -2,6 +2,9 @@
   "name": "webstreams-helper",
   "version": "0.0.0",
   "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {},
   "private": true,
   "devDependencies": {

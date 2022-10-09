@@ -22,6 +22,19 @@ function invariant(condition, message) {
 // Executing publish script: node path/to/publish.mjs {name} --version {version} --tag {tag}
 // Default "tag" to "next" so we won't publish the "latest" tag by accident.
 const [, , name, version, tag = 'next'] = process.argv;
+let publishVersion = version;
+if (publishVersion === 'undefined') {
+  const resp = await fetch(`https://registry.npmjs.org/${name}`)
+  const json = await resp.json();
+  const currentVersion = json?.['dist-tags']?.latest;
+  if (!currentVersion) {
+    throw "can not get version"
+  }
+  /** @type {string[]} */
+  const parts = currentVersion.split('.');
+  parts[parts.length - 1] = +parts[parts.length - 1] + 1;
+  publishVersion = parts.join('.')
+}
 
 // output github action env
 // console.log(process.env);
@@ -29,8 +42,8 @@ const [, , name, version, tag = 'next'] = process.argv;
 // A simple SemVer validation to validate the version
 const validVersion = /^\d+\.\d+\.\d+(-\w+\.\d+)?/;
 invariant(
-  version && validVersion.test(version),
-  `No version provided or version did not match Semantic Versioning, expected: #.#.#-tag.# or #.#.#, got ${version}.`
+  version && validVersion.test(publishVersion),
+  `No version provided or version did not match Semantic Versioning, expected: #.#.#-tag.# or #.#.#, got ${publishVersion}.`
 );
 
 const graph = readCachedProjectGraph();
@@ -52,7 +65,6 @@ process.chdir(outputPath);
 // Updating the version in "package.json" before publishing
 try {
   const json = JSON.parse(readFileSync(`package.json`).toString());
-  let publishVersion = version;
   if (tag !== 'latest') {
     const { GITHUB_RUN_NUMBER } = process.env;
     publishVersion = `${publishVersion}-next.${GITHUB_RUN_NUMBER}`;

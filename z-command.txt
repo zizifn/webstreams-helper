@@ -1,0 +1,3 @@
+## publish
+
+npx nx run split-webstreams:publish --ver 0.0.2 --tag next

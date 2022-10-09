@@ -51,7 +51,8 @@
       "outputs": ["coverage/packages/webstreams-converter"],
       "options": {
         "jestConfig": "packages/webstreams-converter/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "codeCoverage": true
       }
     }
   },

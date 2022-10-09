@@ -5,6 +5,9 @@
 [split-webstreams ![npm version](https://img.shields.io/npm/v/split-webstreams.svg?style=flat-square)](https://www.npmjs.com/package/split-webstreams)
 [webstreams-converter ![npm version](https://img.shields.io/npm/v/webstreams-converter.svg?style=flat-square)](https://www.npmjs.com/package/webstreams-converter)
 
+![Build status](https://img.shields.io/github/workflow/status/zizifn/webstreams-helper/CI/main)
+![code coverage](https://img.shields.io/github/workflow/status/zizifn/webstreams-helper/CI/main)
+
 </div>
 
 **Support both node ( > 18) and browser**

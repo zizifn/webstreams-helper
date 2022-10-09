@@ -18,6 +18,18 @@ $ npm i split-webstreams
 
 https://www.npmjs.com/package/split-webstreams
 
+## webstreams-converter
+
+```bash
+$ npm i webstreams-converter
+```
+
+### Usage
+
+[webstreams-converter](./packages/webstreams-converter/README.md)
+
+https://www.npmjs.com/package/webstreams-converter
+
 ## publish
 
 npx nx run split-webstreams:publish --ver 0.0.2 --tag next

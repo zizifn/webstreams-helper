@@ -1,23 +1,23 @@
 {
-  "name": "split-webstreams",
+  "name": "webstreams-converter",
   "version": "0.0.1",
   "type": "module",
   "browser": {
     "./src/platform/node": "./src/platform/browser"
   },
-  "jsdelivr": "./dist/split-webstreams.mjs",
+  "jsdelivr": "./dist/webstreams-converter.mjs",
   "repository": {
     "type": "git",
     "url": "https://github.com/zizifn/webstreams-helper"
   },
   "keywords": [
     "webstreams",
-    "split"
+    "async-iterator"
   ],
   "author": "zizifn",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/zizifn/webstreams-helper/issues"
   },
-  "homepage": "https://github.com/zizifn/webstreams-helper/tree/main/packages/split-webstreams"
+  "homepage": "https://github.com/zizifn/webstreams-helper/tree/main/packages/webstreams-converter"
 }

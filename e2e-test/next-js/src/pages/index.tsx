@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { trpc } from "../utils/trpc";
 import { split } from "split-webstreams";
 import cloneDeep from "lodash-es/cloneDeep";
+import { webStreamsFrom, webStreams2AsyncIterator } from "webstreams-converter";
 
 const Home: NextPage = () => {
   const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
@@ -93,8 +94,20 @@ const TechnologyCard = ({
 
 const FetchCard = ({}) => {
   const [text, setText] = useState("");
+
+  function* testGen() {
+    yield "a";
+    yield "b";
+    yield "c";
+    return "ddd";
+  }
+
   useEffect(() => {
     (async () => {
+      const read = webStreamsFrom(testGen());
+      for await (const val of webStreams2AsyncIterator(read)) {
+        console.log(val);
+      }
       const result1 = await fetch(
         `https://raw.githubusercontent.com/zizifn/webstreams-helper/main/nx.json`
       )

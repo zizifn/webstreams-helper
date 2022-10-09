@@ -43,7 +43,7 @@ Parameter readableStream is instance of [ReadableStream](https://developer.mozil
 ```javascript
 import { webStreamsFrom, webStreams2AsyncIterator } from 'webstreams-converter';
 
-const read = webStreamsFrom(testGen());
+const read = webStreamsFrom(['a', 'b', 'c']);
 for await (const val of webStreams2AsyncIterator(read)) {
   console.log(val);
 }

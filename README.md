@@ -2,14 +2,14 @@
 
 <div align="center">
 
-[split-webstreams ![npm version](https://img.shields.io/npm/v/split-webstreams.svg?style=flat-square)](https://www.npmjs.com/package/split-webstreams)
-[webstreams-converter ![npm version](https://img.shields.io/npm/v/webstreams-converter.svg?style=flat-square)](https://www.npmjs.com/package/webstreams-converter)
+[split-webstreams![npm version](https://img.shields.io/npm/v/split-webstreams.svg?style=flat-square)](https://www.npmjs.com/package/split-webstreams)
+[webstreams-converter![npm version](https://img.shields.io/npm/v/webstreams-converter.svg?style=flat-square)](https://www.npmjs.com/package/webstreams-converter)
 
 ![Build status](https://img.shields.io/github/workflow/status/zizifn/webstreams-helper/CI/main)
 
 </div>
 
-**Support both node ( > 18) and browser**
+**Zero dependency! And package working in node.js (> 18) and browser.**
 
 [web streams sepc](https://streams.spec.whatwg.org/)
 
@@ -44,7 +44,3 @@ This package has two functions for [web streams](https://streams.spec.whatwg.org
 - `webStreams2AsyncIterator(readableStream)` is [Async Iteration](https://nodejs.org/api/webstreams.html#async-iteration) implementation for web streams in browser. `web streams` spec has this, but **no browser**implementation this yet.
 
 More details is in [webstreams-converter](./packages/webstreams-converter/README.md)
-
-## publish
-
-npx nx run split-webstreams:publish --ver 0.0.2 --tag next

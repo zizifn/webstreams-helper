@@ -23,7 +23,7 @@ function invariant(condition, message) {
 // Default "tag" to "next" so we won't publish the "latest" tag by accident.
 const [, , name, version, tag = 'next'] = process.argv;
 let publishVersion = version;
-if (publishVersion === 'undefined') {
+if (!publishVersion || publishVersion === 'undefined') {
   const resp = await fetch(`https://registry.npmjs.org/${name}`);
   const json = await resp.json();
   const currentVersion = json?.['dist-tags']?.latest;

@@ -1,0 +1,59 @@
+{
+  "name": "webstreams-converter",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/webstreams-converter/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/webstreams-converter",
+        "main": "packages/webstreams-converter/src/index.ts",
+        "tsConfig": "packages/webstreams-converter/tsconfig.lib.json",
+        "assets": ["packages/webstreams-converter/*.md"]
+      }
+    },
+    "bundle": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "vite build --config packages/webstreams-converter/vite.config.ts"
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "vite build --config packages/webstreams-converter/vite.config.ts",
+            "forwardAllArgs": false
+          },
+          "node tools/scripts/publish.mjs webstreams-converter {args.ver} {args.tag}"
+        ],
+        "parallel": false
+      },
+      "dependsOn": [
+        {
+          "projects": "self",
+          "target": "build"
+        }
+      ]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/webstreams-converter/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/webstreams-converter"],
+      "options": {
+        "jestConfig": "packages/webstreams-converter/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

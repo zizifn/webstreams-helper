@@ -4,7 +4,7 @@ Break up a stream and reassemble it so that each line is a chunk. `split-webstre
 
 However this is for [web streams](https://streams.spec.whatwg.org/) which is support by Node(>18) and browser.
 
-**And package working in node and browser.**
+**Zero dependency! And package working in node and browser.**
 
 streams sepc:
 https://streams.spec.whatwg.org/

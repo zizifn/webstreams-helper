@@ -11,6 +11,7 @@
 <body>
     <pre id="app"></pre>
     <script src="https://cdn.jsdelivr.net/npm/split-webstreams@latest/dist/split-webstreams.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/webstreams-converter@latest/dist/webstreams-converter.umd.js"></script>
     <script>
         console.log(window['split-webstreams'].split())
         fetch(`https://raw.githubusercontent.com/zizifn/webstreams-helper/main/nx.json`).then((res) => res.body).then(async (body) => {
@@ -21,6 +22,19 @@
             }
             document.getElementById('app').textContent = final;
         });
+    </script>
+
+    <script>
+        const webStreamsFrom = window['webstreams-converter'].webStreamsFrom;
+        const webStreams2AsyncIterator = window['webstreams-converter'].webStreams2AsyncIterator;
+
+        const read = webStreamsFrom(['a', 'b', 'c']);
+        (async () => {
+            for await (const val of webStreams2AsyncIterator(read)) {
+                console.log(val);
+            }
+        })()
+
     </script>
 </body>
 

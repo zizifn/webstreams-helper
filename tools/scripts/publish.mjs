@@ -24,7 +24,7 @@ function invariant(condition, message) {
 const [, , name, version, tag = 'next'] = process.argv;
 
 // output github action env
-console.log(process.env);
+// console.log(process.env);
 
 // A simple SemVer validation to validate the version
 const validVersion = /^\d+\.\d+\.\d+(-\w+\.\d+)?/;

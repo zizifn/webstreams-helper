@@ -42,7 +42,7 @@ if (!publishVersion || publishVersion === 'undefined') {
 // A simple SemVer validation to validate the version
 const validVersion = /^\d+\.\d+\.\d+(-\w+\.\d+)?/;
 invariant(
-  version && validVersion.test(publishVersion),
+  publishVersion && validVersion.test(publishVersion),
   `No version provided or version did not match Semantic Versioning, expected: #.#.#-tag.# or #.#.#, got ${publishVersion}.`
 );
 

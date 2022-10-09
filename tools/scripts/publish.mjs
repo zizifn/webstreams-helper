@@ -24,16 +24,16 @@ function invariant(condition, message) {
 const [, , name, version, tag = 'next'] = process.argv;
 let publishVersion = version;
 if (publishVersion === 'undefined') {
-  const resp = await fetch(`https://registry.npmjs.org/${name}`)
+  const resp = await fetch(`https://registry.npmjs.org/${name}`);
   const json = await resp.json();
   const currentVersion = json?.['dist-tags']?.latest;
   if (!currentVersion) {
-    throw "can not get version"
+    throw 'can not get version';
   }
   /** @type {string[]} */
   const parts = currentVersion.split('.');
   parts[parts.length - 1] = +parts[parts.length - 1] + 1;
-  publishVersion = parts.join('.')
+  publishVersion = parts.join('.');
 }
 
 // output github action env

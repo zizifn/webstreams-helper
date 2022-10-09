@@ -21,7 +21,7 @@ on:
       version:
         description: 'npm packages version'
         default: ''
-        required: true
+        required: false
       tag:
         description: 'npm packages tag (next or latest)'
         default: 'next'

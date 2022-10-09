@@ -13,6 +13,11 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
     inputs:
+      publish:
+        description: 'publish or not'
+        default: false
+        type: boolean
+        required: true
       version:
         description: 'npm packages version'
         default: ''
@@ -53,7 +58,7 @@ jobs:
           name: coverage
           path: coverage
       - name: 'publish to npm'
-        if: ${{github.event.inputs.version != ''}}
+        if: ${{github.event.inputs.publish}}
         run: npx nx run-many --target=publish --ver ${{github.event.inputs.version}} --tag  ${{github.event.inputs.tag}} --parallel=3
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

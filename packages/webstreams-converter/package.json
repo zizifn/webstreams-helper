@@ -11,8 +11,9 @@
     "url": "https://github.com/zizifn/webstreams-helper"
   },
   "keywords": [
-    "webstreams",
-    "async-iterator"
+    "web streams",
+    "asyncIterator",
+    "Iterator"
   ],
   "author": "zizifn",
   "license": "MIT",

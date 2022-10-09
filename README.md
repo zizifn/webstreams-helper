@@ -6,7 +6,6 @@
 [webstreams-converter ![npm version](https://img.shields.io/npm/v/webstreams-converter.svg?style=flat-square)](https://www.npmjs.com/package/webstreams-converter)
 
 ![Build status](https://img.shields.io/github/workflow/status/zizifn/webstreams-helper/CI/main)
-![code coverage](https://img.shields.io/github/workflow/status/zizifn/webstreams-helper/CI/main)
 
 </div>
 

@@ -40,6 +40,10 @@ if (
   publishVersion = parts.join('.');
 }
 
+if (tag !== 'latest') {
+  const { GITHUB_RUN_NUMBER } = process.env;
+  publishVersion = `${publishVersion}-next.${GITHUB_RUN_NUMBER}`;
+}
 // output github action env
 // console.log(process.env);
 
@@ -69,10 +73,6 @@ process.chdir(outputPath);
 // Updating the version in "package.json" before publishing
 try {
   const json = JSON.parse(readFileSync(`package.json`).toString());
-  if (tag !== 'latest') {
-    const { GITHUB_RUN_NUMBER } = process.env;
-    publishVersion = `${publishVersion}-next.${GITHUB_RUN_NUMBER}`;
-  }
   json.version = publishVersion;
   writeFileSync(`package.json`, JSON.stringify(json, null, 2));
 } catch (e) {

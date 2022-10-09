@@ -1,8 +1,10 @@
 # webstreams-converter
 
-`webStreamsFrom` is [stream.Readable.from](https://nodejs.org/api/stream.html#streamreadablefromiterable-options) implementation for web streams.
+This package has two functions for [web streams](https://streams.spec.whatwg.org/).
 
-`webStreams2AsyncIterator` is [Async Iteration](https://nodejs.org/api/webstreams.html#async-iteration) implementation for web streams in browser. `web streams` spec has this, but no browser implementation this yet.
+- `webStreamsFrom(iterable)` is [stream.Readable.from](https://nodejs.org/api/stream.html#streamreadablefromiterable-options) implementation for web streams.
+
+- `webStreams2AsyncIterator(readableStream)` is [Async Iteration](https://nodejs.org/api/webstreams.html#async-iteration) implementation for web streams in browser. `web streams` spec has this, but **no browser**implementation this yet.
 
 **Zero dependency! And package working in node and browser.**
 
